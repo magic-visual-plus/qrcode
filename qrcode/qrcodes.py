@@ -27,9 +27,8 @@ def detect_qrcode(detector, image):
     y2 = int(y2) + 2
 
     img = image[y1:y2, x1:x2]
-    # cv2.imwrite(os.path.join(output_path, filename), img)
 
-    for d in range(-36, 36, 6):
+    for d in range(-180, 180, 30):
         img_ = ndimage.rotate(img, d)
         qr_code = pyzbar.pyzbar.decode(Image.fromarray(img_))
 
@@ -46,19 +45,8 @@ def detect_qrcode(detector, image):
 if __name__ == '__main__':
     detector = QRDetector(model_size='s')
     input_path = sys.argv[1]
-    output_path = sys.argv[2]
     
-    filenames = os.listdir(input_path)
-    for filename in filenames:
-        if filename.startswith('.'):
-            continue
-        image = cv2.imread(os.path.join(input_path, filename))
-        qr_code = detect_qrcode(detector, image)
-
-        if qr_code:
-            print(f'{filename}: {qr_code}')
-            pass
-        else:
-            print(f'No QR code recognized in {filename}')
-            pass
-        pass
+    img = cv2.imread(input_path)
+    qr_code = detect_qrcode(detector, img)
+    print(f'QR code: {qr_code}')
+    pass
