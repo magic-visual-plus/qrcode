@@ -27,6 +27,7 @@ def detect_qrcode(detector, image):
     y2 = int(y2) + 2
 
     img = image[y1:y2, x1:x2]
+    img = cv2.GaussianBlur(img, (3, 3), 0)
 
     for d in range(-180, 180, 30):
         img_ = ndimage.rotate(img, d)
