@@ -3,8 +3,7 @@
 import unittest
 import os
 import cv2
-from qrdet import QRDetector
-from qrcode import qrcodes
+from qrcode import moli_qrcode_decoder
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -14,10 +13,12 @@ class TestQRCodeRecognition(unittest.TestCase):
 
         filenames = os.listdir(data_path)
 
-        detector = QRDetector(model_size='s')
+        filenames = [f for f in filenames if f.endswith('.jpg') or f.endswith('.png')]
+        
+        decoder = moli_qrcode_decoder.MoliQRCodeDecoder()
         for filename in filenames:
             img = cv2.imread(os.path.join(data_path, filename))
-            code = qrcodes.detect_qrcode(detector, img)
+            code = decoder.detectAndDecode(img)
             print(f'{filename}: {code}')
             self.assertIsNotNone(code)
             pass
