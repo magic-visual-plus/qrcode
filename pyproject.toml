@@ -22,3 +22,7 @@ requires-python = ">=3.6"
 [tool.setuptools.packages.find]
 where = ["."]
 exclude = ["tests"]
+
+[tool.setuptools.package-data]
+where = ["."]
+"*" = ["*.caffemodel", "*.prototxt"]
