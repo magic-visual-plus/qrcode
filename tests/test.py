@@ -3,7 +3,7 @@
 import unittest
 import os
 import cv2
-from qrcode import moli_qrcode_decoder
+from moli_qrcode import moli_qrcode_decoder
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
